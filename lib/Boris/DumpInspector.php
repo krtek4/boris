@@ -5,7 +5,7 @@ namespace Boris;
 /**
  * Passes values through var_dump() to inspect them.
  */
-class DumpInspector implements Inspector
+class DumpInspector extends Inspector
 {
     public function inspect($variable)
     {

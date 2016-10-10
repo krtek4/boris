@@ -148,16 +148,16 @@ class EvalWorker
                 // undo ctrl-c signal handling ready for user code execution
                 pcntl_signal(SIGINT, SIG_DFL, true);
                 $__pid = posix_getpid();
-                
-                $__result = eval($__input);
+
+                $__result = eval($this->_inspector->makeInspectable($__input));
                 
                 if (posix_getpid() != $__pid) {
                     // whatever the user entered caused a forked child
                     // (totally valid, but we don't want that child to loop and wait for input)
                     exit(0);
                 }
-                
-                if (preg_match('/\s*return\b/i', $__input)) {
+
+                if ($this->_inspector->isInspectable($__input)) {
                     fwrite(STDOUT, sprintf("%s\n", $this->_inspector->inspect($__result)));
                 }
                 $this->_expungeOldWorker();

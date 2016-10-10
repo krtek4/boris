@@ -5,7 +5,7 @@ namespace Boris;
 /**
  * Passes values through var_export() to inspect them.
  */
-class ExportInspector implements Inspector
+class ExportInspector extends Inspector
 {
     public function inspect($variable)
     {

@@ -250,7 +250,7 @@ class ShallowParser
     private function _prepareDebugStmt($input)
     {
         if ($this->_isReturnable($input) && !preg_match('/^\s*return/i', $input)) {
-            $input = sprintf('return %s', $input);
+            $input = sprintf('%s %s', Inspector::MAGIC, $input);
         }
         
         return $input;
