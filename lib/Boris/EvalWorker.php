@@ -158,7 +158,10 @@ class EvalWorker
                 }
 
                 if ($this->_inspector->isInspectable($__input)) {
-                    fwrite(STDOUT, sprintf("%s\n", $this->_inspector->inspect($__result)));
+                    $inspection = trim($this->_inspector->inspect($__result));
+                    if(strlen($inspection) > 0) {
+                        fwrite(STDOUT, sprintf("%s\n", $inspection));
+                    }
                 }
                 $this->_expungeOldWorker();
             }
