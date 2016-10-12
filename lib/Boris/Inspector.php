@@ -12,10 +12,11 @@ abstract class Inspector
      * Return a debug-friendly string representation of $variable.
      *
      * @param mixed $variable
+     * @param string $output
      *
      * @return string
      */
-    public abstract function inspect($variable);
+    public abstract function inspect($variable, $output);
 
     public function makeInspectable($input) {
         return str_replace(static::MAGIC, 'return', $input);

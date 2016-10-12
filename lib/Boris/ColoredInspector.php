@@ -66,9 +66,12 @@ class ColoredInspector extends Inspector
         }
     }
     
-    public function inspect($variable)
+    public function inspect($variable, $output)
     {
-        return preg_replace('/^/m', $this->_colorize('comment', '// '), $this->_dump($variable));
+        return sprintf("%s\n%s",
+            $output,
+            preg_replace('/^/m', $this->_colorize('comment', '// '), $this->_dump($variable, $output))
+        );
     }
     
     /**
@@ -86,7 +89,7 @@ class ColoredInspector extends Inspector
     
     // -- Private Methods
     
-    public function _dump($value)
+    public function _dump($value, $output)
     {
         $tests = array(
             'is_null' => '_dumpNull',
@@ -106,7 +109,7 @@ class ColoredInspector extends Inspector
                 ), $value);
         }
         
-        return $this->_fallback->inspect($value);
+        return $this->_fallback->inspect($value, $output);
     }
     
     private function _dumpNull($value)

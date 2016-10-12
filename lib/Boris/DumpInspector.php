@@ -7,10 +7,10 @@ namespace Boris;
  */
 class DumpInspector extends Inspector
 {
-    public function inspect($variable)
+    public function inspect($variable, $output)
     {
         ob_start();
         var_dump($variable);
-        return sprintf(" → %s", trim(ob_get_clean()));
+        return sprintf("%s\n → %s", $output, trim(ob_get_clean()));
     }
 }

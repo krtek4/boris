@@ -149,7 +149,9 @@ class EvalWorker
                 pcntl_signal(SIGINT, SIG_DFL, true);
                 $__pid = posix_getpid();
 
+                ob_start();
                 $__result = eval($this->_inspector->makeInspectable($__input));
+                $__output = ob_get_clean();
                 
                 if (posix_getpid() != $__pid) {
                     // whatever the user entered caused a forked child
@@ -158,7 +160,7 @@ class EvalWorker
                 }
 
                 if ($this->_inspector->isInspectable($__input)) {
-                    $inspection = trim($this->_inspector->inspect($__result));
+                    $inspection = trim($this->_inspector->inspect($__result, $__output));
                     if(strlen($inspection) > 0) {
                         fwrite(STDOUT, sprintf("%s\n", $inspection));
                     }

@@ -7,8 +7,8 @@ namespace Boris;
  */
 class ExportInspector extends Inspector
 {
-    public function inspect($variable)
+    public function inspect($variable, $output)
     {
-        return sprintf(" → %s", var_export($variable, true));
+        return sprintf("%s\n → %s", $output, var_export($variable, true));
     }
 }
